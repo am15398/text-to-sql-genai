@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text-to-SQL GenAI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1e4ed8;
+        }
+        pre {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background: #2563eb;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Text-to-SQL GenAI</h2>
+
+    <textarea id="prompt" placeholder="Enter your question..."></textarea>
+    <br>
+    <button onclick="runQuery()">Run Query</button>
+
+    <h3>Generated SQL</h3>
+    <pre id="sqlOutput"></pre>
+
+    <h3>Results</h3>
+    <div id="resultTable"></div>
+</div>
+
+<script>
+async function runQuery() {
+    const prompt = document.getElementById("prompt").value;
+
+    const response = await fetch("/query", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question: prompt })
+    });
+
+    const data = await response.json();
+
+    if (data.detail) {
+        alert(data.detail);
+        return;
+    }
+
+    // Show SQL
+    document.getElementById("sqlOutput").textContent = data.generated_sql;
+
+    // Build table
+    const columns = data.result.columns;
+    const rows = data.result.data;
+
+    let html = "<table><tr>";
+    columns.forEach(col => {
+        html += `<th>${col}</th>`;
+    });
+    html += "</tr>";
+
+    rows.forEach(row => {
+        html += "<tr>";
+        row.forEach(cell => {
+            html += `<td>${cell}</td>`;
+        });
+        html += "</tr>";
+    });
+
+    html += "</table>";
+
+    document.getElementById("resultTable").innerHTML = html;
+}
+</script>
+</body>
+</html>
