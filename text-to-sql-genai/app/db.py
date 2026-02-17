@@ -11,10 +11,18 @@ def run_query(query: str):
         access_token=os.getenv("DATABRICKS_TOKEN")
     )
 
+    print("HOST:", os.getenv("DATABRICKS_SERVER_HOSTNAME"))
+    print("PATH:", os.getenv("DATABRICKS_HTTP_PATH"))
+    print("TOKEN:", os.getenv("DATABRICKS_TOKEN"))
+    
     with connection.cursor() as cursor:
         cursor.execute(query)
         result = cursor.fetchall()
         columns = [col[0] for col in cursor.description]
+
+    print("HOST:", os.getenv("DATABRICKS_SERVER_HOSTNAME"))
+    print("PATH:", os.getenv("DATABRICKS_HTTP_PATH"))
+    print("TOKEN:", os.getenv("DATABRICKS_TOKEN"))
 
     return {
         "columns": columns,
