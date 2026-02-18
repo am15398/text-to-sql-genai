@@ -58,18 +58,18 @@ Accuracy Test Harness
 text-to-sql-genai/
 │
 ├── app/
-│   ├── db.py                
-│   ├── llm.py      
-│   ├── main.py          
-│   ├── models.py       
-│   └── prompt.py               
+│   ├── db.py            # Handles database connection and SQL execution
+│   ├── llm.py           # Manages interaction with the LLM to generate SQL
+│   ├── main.py          # FastAPI entry point and API endpoint definitions
+│   ├── models.py        # Pydantic models for request and response validation
+│   └── prompt.py        # Stores prompt templates for SQL generation
 │
 ├── frontend/
-│   └── index.html             # Simple UI for questions
+│   └── index.html       # Simple web UI to ask questions and view results
 │
-├── .env                       # Secrets and credentials
-├── requirements.txt
-└── README.md
+├── .env                 # Environment variables and secret credentials
+├── requirements.txt     # Python dependencies for the project
+└── README.md            # Project documentation and setup instructions
 ```
 
 ---
