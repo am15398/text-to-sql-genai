@@ -96,6 +96,12 @@ uvicorn
 ## 2. Configure `.env`
 
 ```
+# Copy example file
+cp .env.example .env
+
+# Then edit .env and add your real credentials
+
+
 DATABRICKS_SERVER_HOSTNAME=your-host
 DATABRICKS_HTTP_PATH=your-http-path
 DATABRICKS_TOKEN=your-token
