@@ -7,11 +7,6 @@ load_dotenv()
 def run_query(query: str):
     connection = None
     try:
-        # 🔍 DEBUG: Print SQL before execution
-        print("\n--- RUNNING SQL IN DATABASE ---")
-        print(query)
-        print("--------------------------------\n")
-
         connection = sql.connect(
             server_hostname=os.getenv("DATABRICKS_SERVER_HOSTNAME"),
             http_path=os.getenv("DATABRICKS_HTTP_PATH"),
