@@ -179,9 +179,7 @@ uvicorn app.main:app --reload
 
 ---
 
-![alt text](Show diagnostic count per admission.png)
-
+![alt text](Show%20diagnostic%20count%20per%20admission.png)
 ---
-![alt text](Show total billing by disease category.png)
-
+![alt text](Show%20total%20billing%20by%20disease%20category.png)
 ---
