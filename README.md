@@ -58,11 +58,11 @@ Accuracy Test Harness
 text-to-sql-genai/
 │
 ├── app/
-│   ├── main.py                # FastAPI or backend entry point
-│   ├── prompt_builder.py      # Dynamic prompt logic
-│   ├── llm_client.py          # Groq LLM integration
-│   ├── sql_executor.py        # Databricks query execution
-│   └── utils.py               # SQL cleaner, helpers
+│   ├── db.py                
+│   ├── llm.py      
+│   ├── main.py          
+│   ├── models.py       
+│   └── prompt.py               
 │
 ├── frontend/
 │   └── index.html             # Simple UI for questions
@@ -71,110 +71,6 @@ text-to-sql-genai/
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-# Step-by-Step Project Flow
-
-## Step 1 — User enters a question
-
-Example:
-
-```
-Show total billing by department
-```
-
----
-
-## Step 2 — Prompt builder adds schema
-
-The system fetches:
-
-* Tables
-* Columns
-* Relationships
-
-And builds a structured prompt.
-
-Example prompt:
-
-```
-You are a SQL assistant.
-
-Database: healthcare.hmis
-
-Tables:
-- patient
-- admission
-- billing
-- department
-...
-
-Rules:
-- Only generate SELECT queries
-- Use fully qualified table names
-```
-
----
-
-## Step 3 — LLM generates SQL
-
-LLM output:
-
-```sql
-SELECT d.department_name,
-       SUM(b.total_amount) AS total_billing
-FROM healthcare.hmis.billing b
-JOIN healthcare.hmis.admission a
-  ON b.admission_id = a.admission_id
-JOIN healthcare.hmis.department d
-  ON a.department_id = d.department_id
-GROUP BY d.department_name;
-```
-
----
-
-## Step 4 — SQL cleaner removes formatting
-
-Removes:
-
-````
-```sql
-...
-````
-
-````
-
-And returns clean SQL.
-
----
-
-## Step 5 — Query executed in Databricks
-Using:
-
-- Databricks SQL Warehouse
-- Databricks SQL Connector
-
----
-
-## Step 6 — Results returned to user
-Example:
-
-| department_name | total_billing |
-|-----------------|--------------|
-| Cardiology | 1,250,000 |
-| Orthopedics | 980,000 |
-
----
-
-## Step 7 — Accuracy evaluation (test harness)
-The harness:
-
-1. Sends question to LLM
-2. Gets generated SQL
-3. Runs expected SQL
-4. Compares results
-5. Calculates accuracy
 
 ---
 
@@ -270,5 +166,3 @@ uvicorn app.main:app --reload
 | 50 | Show top 5 departments by revenue               | Cross-domain | Medium     |
 
 ---
-
-
