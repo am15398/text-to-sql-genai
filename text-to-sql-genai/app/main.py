@@ -23,12 +23,21 @@ def serve_ui():
 @app.post("/query")
 def query_data(request: PromptRequest):
     try:
+        # Step 1: Generate SQL
         sql = generate_sql(request.question)
+
+        # 🔍 DEBUG: Print generated SQL
+        print("\n==============================")
+        print("GENERATED SQL:")
+        print(sql)
+        print("==============================\n")
 
         # Guardrail: only allow SELECT
         if not sql.lower().startswith("select"):
             raise Exception("Only SELECT queries are allowed")
 
+        # 🔍 DEBUG: Print before execution
+        print("Executing SQL query...")
         result = run_query(sql)
 
         return {
@@ -37,4 +46,13 @@ def query_data(request: PromptRequest):
         }
 
     except Exception as e:
+        # 🔍 DEBUG: Print error with SQL
+        print("\n********** SQL ERROR **********")
+        print("Error:", str(e))
+        try:
+            print("SQL:", sql)
+        except:
+            print("SQL not generated.")
+        print("********************************\n")
+
         raise HTTPException(status_code=400, detail=str(e))

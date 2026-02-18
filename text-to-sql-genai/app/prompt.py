@@ -57,7 +57,9 @@ def build_prompt(user_question: str) -> str:
 
         columns[table].append(col_line)
 
+    # ----------------------------
     # Build schema text
+    # ----------------------------
     schema_text = f"""
 You are a SQL assistant.
 
@@ -76,12 +78,43 @@ Tables:
         for col in columns.get(table, []):
             schema_text += f"{col}\n"
 
+    # ----------------------------
+    # Relationship rules (FIX)
+    # ----------------------------
+    relationship_rules = """
+Relationship Rules (Important):
+
+1. admission table does NOT contain doctor_id.
+2. To get doctor details for an admission, use this join path:
+
+   admission
+   → patient_diagnostic
+       ON admission.admission_id = patient_diagnostic.admission_id
+   → doctor
+       ON patient_diagnostic.doctor_id = doctor.doctor_id
+
+3. Never join admission directly to doctor.
+4. Always follow the defined join paths.
+"""
+
+    # ----------------------------
+    # General SQL rules
+    # ----------------------------
     rules = """
-Rules:
+SQL Rules:
 - Only generate SELECT queries
 - Do not use DELETE, UPDATE, INSERT, DROP, ALTER, or TRUNCATE
 - Use fully qualified table names: healthcare.hmis.table_name
+- Use table aliases when joining
 - Return only SQL, no explanation
 """
 
-    return f"{schema_text}\n{rules}\nUser question: {user_question}"
+    return f"""
+{schema_text}
+
+{relationship_rules}
+
+{rules}
+
+User question: {user_question}
+"""
