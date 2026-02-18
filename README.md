@@ -12,7 +12,7 @@ This project demonstrates:
 ---
 
 # Project Architecture
-
+![alt text](image.png)
 ```
 User Question
       │
