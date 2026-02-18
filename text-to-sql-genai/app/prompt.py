@@ -84,17 +84,25 @@ Tables:
     relationship_rules = """
 Relationship Rules (Important):
 
-1. admission table does NOT contain doctor_id.
-2. To get doctor details for an admission, use this join path:
+1. admission table contains disease_id.
+   Correct join path for disease:
+   admission.disease_id → disease.disease_id
 
+2. Always use the direct relationship when it exists.
+   Do NOT use indirect paths if a direct FK is available.
+
+3. Incorrect path (avoid):
+   admission → patient_diagnostic → diagnostic_test → disease
+
+4. Correct path:
+   admission → disease
+
+5. For doctor information:
    admission
    → patient_diagnostic
        ON admission.admission_id = patient_diagnostic.admission_id
    → doctor
        ON patient_diagnostic.doctor_id = doctor.doctor_id
-
-3. Never join admission directly to doctor.
-4. Always follow the defined join paths.
 """
 
     # ----------------------------
