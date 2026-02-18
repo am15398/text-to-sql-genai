@@ -7,12 +7,18 @@ This project demonstrates:
 * Dynamic schema-aware prompt generation
 * LLM-based SQL generation
 * Query execution in Databricks
-* Automated accuracy testing
 
+
+---
+# Data set 
+---
+https://www.kaggle.com/datasets/shalakagangurde/hospital-hmis-dataset-for-healthcare-analytics/data
 ---
 
 # Project Architecture
+---
 ![alt text](Healthcare_Data_model.png)
+---
 ```
 User Question
       │
