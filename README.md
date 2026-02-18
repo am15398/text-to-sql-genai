@@ -178,3 +178,10 @@ uvicorn app.main:app --reload
 | 50 | Show top 5 departments by revenue               | Cross-domain | Medium     |
 
 ---
+
+![alt text](Show diagnostic count per admission.png)
+
+---
+![alt text](Show total billing by disease category.png)
+
+---
