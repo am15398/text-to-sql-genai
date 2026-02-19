@@ -10,14 +10,15 @@ This project demonstrates:
 
 
 ---
-# Data set 
+# Dataset source: 
 ---
-https://www.kaggle.com/datasets/shalakagangurde/hospital-hmis-dataset-for-healthcare-analytics/data
+[Hospital HMIS Dataset for Healthcare Analytics](https://www.kaggle.com/datasets/shalakagangurde/hospital-hmis-dataset-for-healthcare-analytics/data)
+
 ---
 
 # Project Architecture
 ---
-![alt text](Healthcare_Data_model.png)
+![alt text](support_image/Healthcare_Data_model.png)
 ---
 ```
 User Question
@@ -179,7 +180,7 @@ uvicorn app.main:app --reload
 
 ---
 
-![alt text](Show%20diagnostic%20count%20per%20admission.png)
+![alt text](support_image/Show%20diagnostic%20count%20per%20admission.png)
 ---
-![alt text](Show%20total%20billing%20by%20disease%20category.png)
+![alt text](support_image/Show%20total%20billing%20by%20disease%20category.png)
 ---
